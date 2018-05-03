@@ -57,7 +57,8 @@ if __name__ == '__main__':
     esci = True
     while (esci):
         comando = input(
-            "\n\nbenvenuto in cosa posso esserti utile?" + '\n a) stampa tutti i numeri primi da una certa ampiezza' + '\n b) stampa un numero primo casuale' + '\n\n => ')
+            "\n\nbenvenuto in cosa posso esserti utile?\n a) stampa tutti i numeri primi da una certa ampiezza\n b) "
+            "stampa un numero primo casuale\n\n => ")
         if comando == 'a':
             comandotrovaprimi()
         elif comando == 'b':
