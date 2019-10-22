@@ -19,4 +19,4 @@ for i in range(iSlides):
     time.sleep(3)
     pyautogui.click(1100, 600)
     time.sleep(0.5)
-print("FINITO!")
+print("Finished!")
