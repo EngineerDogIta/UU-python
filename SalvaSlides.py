@@ -1,12 +1,13 @@
 import time, pyautogui
 
-print('Quante sono le slides? conto anche quella del quiz tranq')
+print('How many slides??')
+print('--> insert a number <--')
 iSlides = int(input())
-print('Come vuoi chiamarle le slides?')
+print('How do you wanna call the slides?')
 nomeSlides = str(input())
-print('Parto con lo scraping assicurati di trovarti alla prima delle {} slides'.format(iSlides))
-print('Hai tempo 5 secondi poi parto')
-print('per fermare il programma usa ctrl-z, ctrl-c o muovi il mouse in alto a sinistra dello schermo')
+print('First be sure to be at the first of the {} slides'.format(iSlides))
+print('You\'ve got 5 seconds to check, if not just press ctrl-c to stop the terminal')
+print('or just get the mouse to the top left corner of the screen, the process will stop')
 
 time.sleep(5)
 
