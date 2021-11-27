@@ -1,22 +1,34 @@
-import time, pyautogui
+import os, time, pyautogui
 
-print('How many slides??')
-print('--> insert a number <--')
-iSlides = int(input())
-print('How do you wanna call the slides?')
-nomeSlides = str(input())
-print('First be sure to be at the first of the {} slides'.format(iSlides))
-print('You\'ve got 5 seconds to check, if not just press ctrl-c to stop the terminal')
-print('or just get the mouse to the top left corner of the screen, the process will stop')
+def main():
 
-time.sleep(5)
+    print('How many slides??')
+    print('--> insert a number <--')
+    n_slides = int(input())
+    print('How you want to call the slides?')
+    name_slides = str(input())
+    print('First be sure to be at the first of the {} slides'.format(n_slides))
+    print('You\'ve got 5 seconds to check, if not just press ctrl-c to stop the terminal')
+    print('or just get the mouse to the top left corner of the screen, the process will stop')
 
-for i in range(iSlides):
-    pyautogui.moveTo(2,2)
-    pyautogui.screenshot("Modulo2Screenshots\\"+nomeSlides+str(i)+'.png', region=(357, 199, 772, 433))
-    time.sleep(0.5)
-    pyautogui.click(1100, 600)
-    time.sleep(3)
-    pyautogui.click(1100, 600)
-    time.sleep(0.5)
-print("Finished!")
+    time.sleep(5)
+    # Create the folder if not exists
+    screenshots_dir = "Screenshots"
+    print('Screenshots will be saved in the folder {}'.format(screenshots_dir))
+    if not os.path.exists(name_slides):
+        os.makedirs(name_slides)
+        print('Folder {} created'.format(name_slides))
+
+    for i in range(n_slides):
+        pyautogui.moveTo(2,2)
+        slide_file_name = '{}{}{}_{}.png'.format(screenshots_dir, os.pathsep, name_slides, i)
+        pyautogui.screenshot(slide_file_name, region=(357, 199, 772, 433))
+        time.sleep(0.5)
+        pyautogui.click(1100, 600)
+        time.sleep(3)
+        pyautogui.click(1100, 600)
+        time.sleep(0.5)
+    print("Finished!")
+
+if __name__ == '__main__':
+    main()
