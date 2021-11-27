@@ -2,67 +2,65 @@
 import random
 
 '''
-usando il crivello di Eratostene
-possiamo trovare tutti i numeri primi compresi tra a e b
+Sieve of Eratosthenes
+Using the Sieve of Eratosthenes, we can find all the prime numbers between 1 and n.
 '''
 
 
-def stampaprimi(a, b):
-    numeri = range(a, b)
-    for n in numeri:
-        if isprimo(n) == True:
-            print('il numero ' + str(n) + ' non e` primo')
-        else:
-            print('il numero ' + str(n) + ' è primo')
+def print_primes(a: int, b: int):
+    numbers_range = range(a, b)
+    [print('{} is a prime number'.format(x))
+     for x in filter(lambda x: is_prime(x), numbers_range)]
+    [print('{} is not a prime number'.format(x))
+     for x in filter(lambda x: not is_prime(x), numbers_range)]
 
 
-def isprimo(x):
+def is_prime(x: int):
     return not ((x % 2 == 0) | (x % 3 == 0) | (x % 5 == 0) | (x % 7 == 0))
 
 
-def trovaprimi(a, b):
-    return list(filter(lambda x: isprimo(x), list(range(a, b))))
+def find_prime(a, b):
+    return list(filter(lambda x: is_prime(x), list(range(a, b))))
 
 
-def comandotrovaprimi():
+def opt_find_prime_numbers():
     try:
-        varia = input('inserisci un numero intero da cui partire per trovare i ' + 'numeri primi => ')
-        while (int(varia) == 1 and int(varia) == 0):
-            varia = input('il numero ' + str(
-                varia) + ' non è identificabile come primo o multiplo \n' + 'inserire un numero intero valido => ')
+        variable_a = int(input('Write the first number to start from'))
+        while (variable_a < 0):
+            variable_a = input('the number {} it\'s not a valid number, please insert a valid number =>'.format(variable_a))
     except Exception as e:
-        varia = random.randint(10, 65535)
-        print('qualcosa è andato storto scelgo un numero a caso ' + str(varia))
+        variable_a = random.randint(10, 65535)
+        print('Error {} choosing a random number instead {}'.format(e, variable_a))
     finally:
-        print('partenza da ' + str(varia))
+        print('partenza da ' + str(variable_a))
     try:
-        varib = input('inserisci un numero intero a cui arrivare per trovare i ' + 'numeri primi => ')
-        while (int(varib) <= int(varia)):
-            varib = input('attenzione il numero inserito è ' + varib + ' ed è minore di ' + str(varia) + '\n' + (
-                    ' ' * 20) + ' inserire un numero più grande (consigliato ' + str(int(varia) + 1) + ') => ')
+        variable_b = int(input('Write the last number to finish'))
+        while (int(variable_b) < int(variable_a)):
+            variable_a = input('the number {} it\'s not a valid number, please insert a valid number =>'.format(variable_a))
     except Exception as e:
-        varib = random.randint(int(varia) + 1, 65535)
-        print('qualcosa è andato storto scelgo un numero a caso ' + str(varib))
+        variable_b = random.randint(int(variable_a) + 1, 65535)
+        print('Error {} choosing a random number instead {}'.format(e, variable_a))
     finally:
-        print('arrivo a ' + str(varia))
-    print("inizio l'analisi")
-    stampaprimi(int(varia), int(varib))
+        print('Finding primes in range({},{})'.format(variable_a, variable_b))
+    print_primes(int(variable_a), int(variable_b))
 
 
-def comandoprimocasuale():
-    a = random.randint(10, 65535)
-    print(random.choice(trovaprimi(1, a)))
+def opt_get_random_prime_number():
+    random_number = random.randint(10, 65535)
+    print(random.choice(find_prime(1, random_number)))
 
 
 if __name__ == '__main__':
-    esci = True
-    while (esci):
-        comando = input(
-            "\n\nbenvenuto in cosa posso esserti utile?\n a) stampa tutti i numeri primi da una certa ampiezza\n b) "
-            "stampa un numero primo casuale\n\n => ")
-        if comando == 'a':
-            comandotrovaprimi()
-        elif comando == 'b':
-            comandoprimocasuale()
-        elif comando == 'e' or comando == 'esci' or comando == 'exit':
-            esci = False
+    is_quit_command = True
+    while (is_quit_command):
+        command_selected = str(input(
+            "\n\nWelcome, choose an option?\n a) print all the prime numbers in a range\n b) "
+            "Print a random prime number\n\n => "))
+        if command_selected.lower() == 'a':
+            opt_find_prime_numbers()
+        elif command_selected.lower() == 'b':
+            opt_get_random_prime_number()
+        elif command_selected.lower() == 'e' or command_selected.lower() == 'esci' or command_selected.lower() == 'exit':
+            is_quit_command = not is_quit_command
+        else:
+            print('Not a valid option')
