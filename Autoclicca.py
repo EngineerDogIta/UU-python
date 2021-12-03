@@ -2,7 +2,8 @@
 import pyautogui
 from random import randint
 from time import sleep
-import sys, os
+import sys
+import os
 
 
 def invalidarguments(argument: str):
@@ -25,8 +26,9 @@ def validate_seconds_delay(seconds_delay: int):
 
 
 def click_mouse(index: int, position: pyautogui.Point):
-    print("[" + str(index + 1) + "] clicked")
+    print(f"[{index + 1}] clicked")
     pyautogui.click(position)
+
 
 def validate_image2click(image2click: str):
     # check if file exists
@@ -43,45 +45,42 @@ def validate_image2click(image2click: str):
         invalidarguments("[image to click]")
         exit()
 
+
 def main():
     n_clicks = int()
     seconds_delay = int()
     start_with_click = str()
     image_button2click = str()
-    if (sys.argv[1] == "--help"):
-        print(
-            "Usage: python3 Autoclicca.py [number of clicks] [delay between clicks]")
-        print("Example: python3 Autoclicca.py 10 0.1")
-        print("This will click 10 times with a delay of 0.1 seconds between each click")
-        exit()
-    else:
-        if (len(sys.argv) == 1):
-            # if first argument exists
-            if (len(sys.argv) == 2):
-                # if second argument exists
-                if (len(sys.argv) == 3):
-                    # if third argument exists
-                    if(start_with_click.upper() not in ("Y", "N")):
-                        invalidarguments('[start with click? Y/N]')
-                    start_with_click = str(sys.argv[3])
+    if (len(sys.argv) >= 2):
+        # if first argument exists
+        if (sys.argv[1] == "--help"):
+            print("Usage: python3 Autoclicca.py [number of clicks] [delay between clicks]")
+            print("Example: python3 Autoclicca.py 10 0.1")
+            print("This will click 10 times with a delay of 0.1 seconds between each click")
+            exit()
+        if (sys.argv[1].isdigit()):
+            # if first argument is a number
+            n_clicks = int(sys.argv[1])
+        else:
+            invalidarguments('[number of clicks]')
 
-                if (len(sys.argv) == 4):
+        # if second argument exists
+        if (len(sys.argv) >= 3):
+            if (sys.argv[2].isdigit()):
+                seconds_delay = int(sys.argv[2])
+            else:
+                invalidarguments('[number of clicks] [delay between clicks]')
+            # if third argument exists
+            if (len(sys.argv) >= 4):
+                if(start_with_click.upper() not in ("Y", "N")):
+                    invalidarguments('[start with click? Y/N]')
+                start_with_click = str(sys.argv[3])
+                # if fourth argument exists
+                if (len(sys.argv) >= 5):
                     validate_image2click(sys.argv[4])
                     image_button2click = str(sys.argv[4])
 
-                if (sys.argv[1].isdigit() and sys.argv[2].isdigit()):
-                    # if both arguments are numbers
-                    n_clicks = int(sys.argv[1])
-                    seconds_delay = int(sys.argv[2])
-                else:
-                    invalidarguments(
-                        '[number of clicks] [delay between clicks]')
-                    exit()
-            if (sys.argv[1].isdigit()):
-                # if first argument is a number
-                n_clicks = int(sys.argv[1])
-            else:
-                invalidarguments('[number of clicks]')
+
 
     pyautogui.FAILSAFE = True
     print("Press enter to continue")
